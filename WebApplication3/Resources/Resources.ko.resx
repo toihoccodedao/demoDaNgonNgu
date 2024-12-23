@@ -117,16 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HomePageDescription" xml:space="preserve">
-    <value />
+  <data name="Email" xml:space="preserve">
+    <value>이메일</value>
   </data>
-  <data name="WelcomeMessage" xml:space="preserve">
-    <value />
+  <data name="Password" xml:space="preserve">
+    <value>비밀번호</value>
   </data>
-  <data name="Login" xml:space="preserve">
-    <value />
+  <data name="Register" xml:space="preserve">
+    <value>회원가입</value>
   </data>
   <data name="Submit" xml:space="preserve">
-    <value />
+    <value>제출</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>사용자 이름</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>로그인</value>
   </data>
 </root>

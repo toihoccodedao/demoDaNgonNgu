@@ -1,63 +1,151 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@using System.Globalization
+<!DOCTYPE html>
+<html lang="@CultureInfo.CurrentUICulture.TwoLetterISOLanguageName">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - WebApplication3</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/WebApplication3.styles.css" asp-append-version="true" />
+    <style>
+        /* Custom CSS for a modern look */
+        body {
+            background-color: #f8f9fa;
+        }
+
+        header {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.25rem;
+            color: #007bff !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: #495057;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #007bff;
+        }
+
+        .btn-primary, .btn-secondary {
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-primary:hover, .btn-secondary:hover {
+            transform: scale(1.05);
+        }
+
+        footer {
+            background-color: #343a40;
+            color: #adb5bd;
+        }
+
+        footer a {
+            color: #6c757d;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #f8f9fa;
+            text-decoration: underline;
+        }
+
+        .footer-lang-switch {
+            padding: 10px 0;
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebApplication3</a>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">DEMO Đa Ngôn Ngữ</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
-                    <!-- Dropdown for Language Selection -->
-                    <form method="get" asp-controller="Home" asp-action="Index" class="d-flex">
-                        @{
-                            var currentCulture = Context.Request.Query["culture"].ToString() ?? "en";
-                            var cultures = new[] {
-                                new { Value = "en", Display = "English" },
-                                new { Value = "vi", Display = "Tiếng Việt" },
-                                new { Value = "fr", Display = "Français" }
-                            };
+                    <ul class="navbar-nav">
+                        @if (ViewBag.IsLoggedIn != null && (bool)ViewBag.IsLoggedIn)
+                        {
+                            <li class="nav-item">
+                                <form method="post" asp-controller="Account" asp-action="Logout" class="d-inline">
+                                    <button type="submit" class="btn btn-outline-dark">Logout</button>
+                                </form>
+                            </li>
                         }
-                        <select name="culture" onchange="this.form.submit()" class="form-select">
-                            @foreach (var culture in cultures)
-                            {
-                                string selectedAttribute = currentCulture == culture.Value ? "selected=\"selected\"" : "";
-                                @: <option value="@culture.Value" @Html.Raw(selectedAttribute)>@culture.Display</option>
-                            }
-                        </select>
-                    </form>
+                        
+                    </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+
+    <!-- Main Content -->
+    <div class="container my-4">
+        <main role="main">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - WebApplication3 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <!-- Footer -->
+    <footer class="text-center text-white">
+        <div class="footer-lang-switch">
+            <form method="post" asp-controller="Home" asp-action="ChangeLanguage" class="d-inline">
+                <input type="hidden" name="culture" value="vi" />
+                <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+                <button type="submit" class="btn btn-link p-0 mx-2">Tiếng Việt</button>
+            </form>
+            <form method="post" asp-controller="Home" asp-action="ChangeLanguage" class="d-inline">
+                <input type="hidden" name="culture" value="en" />
+                <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+                <button type="submit" class="btn btn-link p-0 mx-2">English (UK)</button>
+            </form>
+            <form method="post" asp-controller="Home" asp-action="ChangeLanguage" class="d-inline">
+                <input type="hidden" name="culture" value="fr" />
+                <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+                <button type="submit" class="btn btn-link p-0 mx-2">Français</button>
+            </form>
+            <form method="post" asp-controller="Home" asp-action="ChangeLanguage" class="d-inline">
+                <input type="hidden" name="culture" value="es" />
+                <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+                <button type="submit" class="btn btn-link p-0 mx-1">Español</button>
+            </form>
+            <form method="post" asp-controller="Home" asp-action="ChangeLanguage" class="d-inline">
+                <input type="hidden" name="culture" value="de" />
+                <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+                <button type="submit" class="btn btn-link p-0 mx-1">Deutsch</button>
+            </form>
+            <form method="post" asp-controller="Home" asp-action="ChangeLanguage" class="d-inline">
+                <input type="hidden" name="culture" value="it" />
+                <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+                <button type="submit" class="btn btn-link p-0 mx-1">Italiano</button>
+            </form>
+            <form method="post" asp-controller="Home" asp-action="ChangeLanguage" class="d-inline">
+                <input type="hidden" name="culture" value="ko" />
+                <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+                <button type="submit" class="btn btn-link p-0 mx-1">한국어</button>
+            </form>
+        </div>
+        <div>
+            &copy; @DateTime.Now.Year - WebApplication3 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
+    <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

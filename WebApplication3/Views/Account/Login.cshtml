@@ -1,0 +1,161 @@
+﻿@using System.Globalization
+
+<!DOCTYPE html>
+<html lang="@CultureInfo.CurrentUICulture.TwoLetterISOLanguageName">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebApplication3</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <style>
+        /* CSS cho login form */
+        body {
+            background-color: #f4f4f9;
+            font-family: 'Arial', sans-serif;
+            padding: 50px 0;
+        }
+
+        .login-container {
+            max-width: 450px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background-color: #ffffff;
+            border: 1px solid #e3e3e3;
+        }
+
+            .login-container h1 {
+                text-align: center;
+                font-size: 28px;
+                color: #343a40;
+                margin-bottom: 30px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: #007bff;
+            }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+            .form-group label {
+                font-weight: bold;
+                color: #333;
+                font-size: 14px;
+            }
+
+            .form-group input {
+                width: 100%;
+                padding: 12px;
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                font-size: 16px;
+                color: #555;
+                transition: all 0.3s ease;
+                background-color: #f8f9fa;
+            }
+
+                .form-group input:focus {
+                    border-color: #007bff;
+                    outline: none;
+                    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+                }
+
+            .form-group button {
+                width: 100%;
+                padding: 12px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+                .form-group button:hover {
+                    background-color: #0056b3;
+                }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+            .form-footer a {
+                color: #007bff;
+                font-size: 16px;
+                text-decoration: none;
+            }
+
+                .form-footer a:hover {
+                    text-decoration: underline;
+                }
+
+        .message {
+            text-align: center;
+            color: green;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        /* Thêm màu nền cho trang */
+        .container {
+            background-color: #f0f8ff;
+            padding: 30px 0;
+            border-radius: 10px;
+        }
+
+        /* Màu gradient cho các nút */
+        .form-group button {
+            background: linear-gradient(45deg, #007bff, #00c6ff);
+        }
+
+            .form-group button:hover {
+                background: linear-gradient(45deg, #0056b3, #0084d1);
+            }
+
+        /* Phần hiển thị thông điệp */
+        .message {
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-container">
+            <h1>@ViewData["Login"]</h1>
+
+            <form asp-action="Login" method="post">
+                <div class="form-group">
+                    <label>@ViewData["Username"]:</label>
+                    <input type="text" name="username" required />
+                </div>
+                <div class="form-group">
+                    <label>@ViewData["Password"]:</label>
+                    <input type="password" name="password" required />
+                </div>
+                <div class="form-group">
+                    <button type="submit">@ViewData["Submit"]</button>
+                </div>
+            </form>
+
+            <div class="form-footer">
+                <p><a asp-controller="Account" asp-action="Register">@ViewData["Register"]</a></p>
+            </div>
+
+            @if (TempData["Message"] != null)
+            {
+                <p class="message">@TempData["Message"]</p>
+            }
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

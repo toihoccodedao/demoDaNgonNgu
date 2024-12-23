@@ -1,5 +1,123 @@
-﻿<div class="text-center">
-    <h1 class="display-4">@ViewData["WelcomeMessage"]</h1>
-    <img src="/images/anh1.jpg" alt="Descriptive Alt Text" class="img-fluid mt-4" />
-    <p class="mt-4">@ViewData["HomePageDescription"]</p>
-</div>
+﻿@using System.Globalization
+@{
+    ViewData["Title"] = ViewData["WelcomeMessage"];
+}
+
+<!DOCTYPE html>
+<html lang="@CultureInfo.CurrentUICulture.TwoLetterISOLanguageName">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebApplication3</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <style>
+        /* CSS cho trang */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px 0;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 30px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            background-color: #f39c12; /* Màu vàng cam cho tiêu đề */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background-color: #ffffff;
+        }
+
+        .img-fluid {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+            .img-fluid:hover {
+                transform: scale(1.05);
+            }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #6c757d;
+            text-align: justify;
+            padding: 15px;
+            background-color: #ecf0f1; /* Màu nền nhẹ cho văn bản */
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Hiệu ứng cho ảnh */
+        .container img {
+            border-radius: 10px;
+        }
+
+        /* Màu nền cho các phần tử khác */
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 30px;
+            border-radius: 10px;
+        }
+
+            .footer a {
+                color: #f39c12;
+                text-decoration: none;
+            }
+
+                .footer a:hover {
+                    color: #ecf0f1;
+                }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Tiêu đề trang -->
+        <h1>@ViewData["WelcomeMessage"]</h1>
+
+        <div class="row">
+            <!-- Cột bên trái cho hình ảnh -->
+            <div class="col-md-12">
+                <img src="~/images/th.jpg" alt="Food Blog" class="img-fluid" />
+            </div>
+        </div>
+
+        <!-- Mô tả trang -->
+        <div>
+            <p>@ViewData["HomePageDescription"]</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        &copy; @DateTime.Now.Year - WebApplication3 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
